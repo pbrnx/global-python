@@ -1,5 +1,9 @@
+import os
 import json
 import dados_usuarios
+
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def carregar_dados_alimentos(caminho_arquivo):
     try:
@@ -38,10 +42,10 @@ def calcular_tmb(sexo, idade, peso, altura):
         peso = float(peso)
         altura = float(altura)
         if sexo.lower() == 'feminino':
-            tmb = 655 + (9.6 * peso) + (1.8 * altura) - (4.7 * idade)
+            tmb = int(655 + (9.6 * peso) + (1.8 * altura) - (4.7 * idade))
         else:
-            tmb = 66 + (13.7 * peso) + (5 * altura) - (6.8 * idade)
-        return int(tmb)
+            tmb = int(66 + (13.7 * peso) + (5 * altura) - (6.8 * idade))
+        return tmb
     except ValueError:
         print("Por favor, insira valores numéricos válidos para idade, peso e altura.")
         return None
@@ -86,6 +90,7 @@ def mostrar_menu():
     print("7. Sair")
 
 def main():
+    limpar_tela()
     dados_alimentos = carregar_dados_alimentos('./alimentos_brasileiros.json')
     usuario_atual = None
 
@@ -94,6 +99,7 @@ def main():
         escolha_menu = input("Escolha uma opção: ")
 
         if escolha_menu == '1':
+            limpar_tela()
             nome_usuario = input("Digite seu nome de usuário: ")
             senha = input("Digite sua senha: ")
             if dados_usuarios.validar_login(nome_usuario, senha):
@@ -103,6 +109,7 @@ def main():
                 print("Nome de usuário ou senha incorretos.")
 
         elif escolha_menu == '2':
+            limpar_tela()
             nome_usuario = input("Escolha um nome de usuário: ")
             senha = input("Escolha uma senha: ")
             if nome_usuario in dados_usuarios.usuarios:
@@ -113,34 +120,40 @@ def main():
                 usuario_atual = dados_usuarios.obter_usuario(nome_usuario)
 
         elif escolha_menu == '3':
+            limpar_tela()
             if usuario_atual:
                 sexo = input_sexo()
                 idade = input("Informe a idade: ")
                 peso = input("Informe o peso (em kg): ")
                 altura = input("Informe a altura (em cm): ")
                 tmb_usuario = calcular_tmb(sexo, idade, peso, altura)
+                limpar_tela()
                 print(f"Sua Taxa Metabólica Basal é: {tmb_usuario:.2f} calorias/dia")
                 dias_exercicio = int(input("Quantos dias por semana você faz exercício físico? "))
                 get_usuario = calcular_get(tmb_usuario, dias_exercicio)
-                print(f"Seu Gasto Energético Total estimado é: {get_usuario:.2f} calorias/dia")
+                print(f"Seu Gasto Energético Total estimado é: {get_usuario} calorias/dia")
                 dados_usuarios.atualizar_dados_usuario(nome_usuario, get_usuario, usuario_atual['calorias_ingeridas'])
+                
             else:
                 print("Por favor, faça login ou crie uma conta primeiro.")
 
         elif escolha_menu == '4':
+            limpar_tela()
             if usuario_atual and dados_alimentos:
                 calorias_refeicao = calcular_calorias_refeicao(dados_alimentos)
-                print(f"Total de calorias da refeição: {calorias_refeicao:.2f} calorias")
+                print(f"Total de calorias da refeição: {calorias_refeicao} calorias")
                 calorias_restantes = usuario_atual['get'] - calorias_refeicao
-                print(f"Você ainda pode consumir {calorias_restantes:.2f} calorias hoje se deseja manter seu peso")
+                print(f"Você ainda pode consumir {calorias_restantes} calorias hoje se deseja manter seu peso")
                 dados_usuarios.atualizar_dados_usuario(nome_usuario, usuario_atual['get'], calorias_refeicao)
             else:
                 print("Dados dos alimentos não disponíveis ou usuário não logado.")
 
         elif escolha_menu == '5':
+            limpar_tela()
             mostrar_cardapio(dados_alimentos)
 
         elif escolha_menu == '6':
+            limpar_tela()
             if usuario_atual:
                 mostrar_calorias_restantes(usuario_atual)
             else:
