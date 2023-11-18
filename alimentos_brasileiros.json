@@ -1,0 +1,37 @@
+{
+    "frango": {
+        "calorias": 239,
+        "proteinas": 27.3,
+        "carboidratos": 0,
+        "fibras": 0,
+        "gorduras": 14.0
+    },
+    "peixe": {
+        "calorias": 206,
+        "proteinas": 22.2,
+        "carboidratos": 0,
+        "fibras": 0,
+        "gorduras": 12.0
+    },
+    "ovo": {
+        "calorias": 155,
+        "proteinas": 13,
+        "carboidratos": 1.1,
+        "fibras": 0,
+        "gorduras": 10.6
+    },
+    "banana": {
+        "calorias": 89,
+        "proteinas": 1.1,
+        "carboidratos": 22.8,
+        "fibras": 2.6,
+        "gorduras": 0.3
+    },
+    "maca": {
+        "calorias": 52,
+        "proteinas": 0.3,
+        "carboidratos": 14,
+        "fibras": 2.4,
+        "gorduras": 0.2
+    }
+}
