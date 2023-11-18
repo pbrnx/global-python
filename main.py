@@ -67,6 +67,14 @@ def mostrar_cardapio(alimentos):
             print(f"  {chave.capitalize()}: {valor}")
         print()
 
+def mostrar_calorias_restantes(usuario):
+    if usuario:
+        calorias_restantes = usuario['get'] - usuario['calorias_ingeridas']
+        print(f"\nGET: {usuario['get']} calorias")
+        print(f"Calorias restantes para hoje: {calorias_restantes} calorias\n")
+    else:
+        print("Usuário não logado ou dados não disponíveis.")
+
 def mostrar_menu():
     print("\nMenu Principal do hAppVida Fitness")
     print("1. Login")
@@ -74,7 +82,8 @@ def mostrar_menu():
     print("3. Calcular Taxa Metabólica Basal (TMB)")
     print("4. Calcular Calorias da Refeição")
     print("5. Cardápio")
-    print("6. Sair")
+    print("6. Verificar Calorias Restantes")
+    print("7. Sair")
 
 def main():
     dados_alimentos = carregar_dados_alimentos('./alimentos_brasileiros.json')
@@ -132,6 +141,12 @@ def main():
             mostrar_cardapio(dados_alimentos)
 
         elif escolha_menu == '6':
+            if usuario_atual:
+                mostrar_calorias_restantes(usuario_atual)
+            else:
+                print("Por favor, faça login ou crie uma conta para acessar esta opção.")
+
+        elif escolha_menu == '7':
             print("Obrigado por usar o hAppVida Fitness!")
             break
 
