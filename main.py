@@ -1,4 +1,5 @@
 import json
+import dados_usuarios
 
 def carregar_dados_alimentos(caminho_arquivo):
     try:
@@ -58,7 +59,6 @@ def calcular_get(tmb, dias_exercicio):
         fator = 1.9
     return tmb * fator
 
-
 def mostrar_cardapio(alimentos):
     print("\nCardápio de Alimentos com Informações Nutricionais:\n")
     for alimento, dados in alimentos.items():
@@ -67,55 +67,76 @@ def mostrar_cardapio(alimentos):
             print(f"  {chave.capitalize()}: {valor}")
         print()
 
-
 def mostrar_menu():
     print("\nMenu Principal do hAppVida Fitness")
-    print("1. Calcular Taxa Metabólica Basal (TMB)")
-    print("2. Calcular Calorias da Refeição")
-    print("3. Cardápio")
-    print("4. Sair")
+    print("1. Login")
+    print("2. Criar Conta")
+    print("3. Calcular Taxa Metabólica Basal (TMB)")
+    print("4. Calcular Calorias da Refeição")
+    print("5. Cardápio")
+    print("6. Sair")
 
 def main():
     dados_alimentos = carregar_dados_alimentos('./alimentos_brasileiros.json')
-    tmb_usuario = None
-    get_usuario = None
+    usuario_atual = None
 
     while True:
         mostrar_menu()
         escolha_menu = input("Escolha uma opção: ")
 
         if escolha_menu == '1':
-            sexo = input_sexo()
-            idade = input("Informe a idade: ")
-            peso = input("Informe o peso (em kg): ")
-            altura = input("Informe a altura (em cm): ")
-            tmb_usuario = calcular_tmb(sexo, idade, peso, altura)
-            if tmb_usuario:
+            nome_usuario = input("Digite seu nome de usuário: ")
+            senha = input("Digite sua senha: ")
+            if dados_usuarios.validar_login(nome_usuario, senha):
+                usuario_atual = dados_usuarios.obter_usuario(nome_usuario)
+                print(f"Bem-vindo de volta, {nome_usuario}!")
+            else:
+                print("Nome de usuário ou senha incorretos.")
+
+        elif escolha_menu == '2':
+            nome_usuario = input("Escolha um nome de usuário: ")
+            senha = input("Escolha uma senha: ")
+            if nome_usuario in dados_usuarios.usuarios:
+                print("Nome de usuário já existe.")
+            else:
+                dados_usuarios.adicionar_usuario(nome_usuario, senha)
+                print(f"Conta criada com sucesso. Bem-vindo(a), {nome_usuario}!")
+                usuario_atual = dados_usuarios.obter_usuario(nome_usuario)
+
+        elif escolha_menu == '3':
+            if usuario_atual:
+                sexo = input_sexo()
+                idade = input("Informe a idade: ")
+                peso = input("Informe o peso (em kg): ")
+                altura = input("Informe a altura (em cm): ")
+                tmb_usuario = calcular_tmb(sexo, idade, peso, altura)
                 print(f"Sua Taxa Metabólica Basal é: {tmb_usuario:.2f} calorias/dia")
                 dias_exercicio = int(input("Quantos dias por semana você faz exercício físico? "))
                 get_usuario = calcular_get(tmb_usuario, dias_exercicio)
                 print(f"Seu Gasto Energético Total estimado é: {get_usuario:.2f} calorias/dia")
-
-
-        elif escolha_menu == '2':
-            if dados_alimentos:
-                calorias_refeicao = calcular_calorias_refeicao(dados_alimentos)
-                print(f"Total de calorias da refeição: {calorias_refeicao:.2f} calorias")
-                if get_usuario:
-                    calorias_restantes = get_usuario - calorias_refeicao
-                    print(f"Você ainda pode consumir {calorias_restantes:.2f} calorias hoje se deseja manter seu peso")
+                dados_usuarios.atualizar_dados_usuario(nome_usuario, get_usuario, usuario_atual['calorias_ingeridas'])
             else:
-                print("Dados dos alimentos não disponíveis.")
-
-        elif escolha_menu == '3':
-            mostrar_cardapio(dados_alimentos)
+                print("Por favor, faça login ou crie uma conta primeiro.")
 
         elif escolha_menu == '4':
+            if usuario_atual and dados_alimentos:
+                calorias_refeicao = calcular_calorias_refeicao(dados_alimentos)
+                print(f"Total de calorias da refeição: {calorias_refeicao:.2f} calorias")
+                calorias_restantes = usuario_atual['get'] - calorias_refeicao
+                print(f"Você ainda pode consumir {calorias_restantes:.2f} calorias hoje se deseja manter seu peso")
+                dados_usuarios.atualizar_dados_usuario(nome_usuario, usuario_atual['get'], calorias_refeicao)
+            else:
+                print("Dados dos alimentos não disponíveis ou usuário não logado.")
+
+        elif escolha_menu == '5':
+            mostrar_cardapio(dados_alimentos)
+
+        elif escolha_menu == '6':
             print("Obrigado por usar o hAppVida Fitness!")
             break
+
         else:
             print("Opção inválida. Por favor, tente novamente.")
 
 if __name__ == "__main__":
     main()
-
