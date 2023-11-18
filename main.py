@@ -134,7 +134,7 @@ def mostrar_menu():
     print("1. Login")
     print("2. Criar Conta")
     print("3. Calcular Taxa Metabólica Basal (TMB)")
-    print("4. Calcular Calorias da Refeição")
+    print("4. Inserir Calorias da Refeição")
     print("5. Cardápio")
     print("6. Verificar Calorias Restantes")
     print("7. Registrar Peso")
