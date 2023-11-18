@@ -1,37 +1,73 @@
 {
-    "frango": {
-        "calorias": 239,
-        "proteinas": 27.3,
-        "carboidratos": 0,
-        "fibras": 0,
-        "gorduras": 14.0
-    },
-    "peixe": {
-        "calorias": 206,
-        "proteinas": 22.2,
-        "carboidratos": 0,
-        "fibras": 0,
-        "gorduras": 12.0
-    },
-    "ovo": {
-        "calorias": 155,
-        "proteinas": 13,
-        "carboidratos": 1.1,
-        "fibras": 0,
-        "gorduras": 10.6
-    },
-    "banana": {
-        "calorias": 89,
-        "proteinas": 1.1,
-        "carboidratos": 22.8,
-        "fibras": 2.6,
+    "arroz": {
+        "calorias": 130,
+        "proteinas": 2.7,
+        "carboidratos": 28,
+        "fibras": 0.4,
         "gorduras": 0.3
     },
-    "maca": {
-        "calorias": 52,
+    "feijao": {
+        "calorias": 76,
+        "proteinas": 4.8,
+        "carboidratos": 13.6,
+        "fibras": 8.5,
+        "gorduras": 0.5
+    },
+    "carne": {
+        "calorias": 250,
+        "proteinas": 26,
+        "carboidratos": 0,
+        "fibras": 0,
+        "gorduras": 15
+    },
+    "batata": {
+        "calorias": 77,
+        "proteinas": 2,
+        "carboidratos": 17,
+        "fibras": 2.2,
+        "gorduras": 0.1
+    },
+    "mandioca": {
+        "calorias": 125,
         "proteinas": 0.3,
-        "carboidratos": 14,
-        "fibras": 2.4,
-        "gorduras": 0.2
+        "carboidratos": 30,
+        "fibras": 1.8,
+        "gorduras": 0.3
+    },
+    "frango": {
+            "calorias": 239,
+            "proteinas": 27.3,
+            "carboidratos": 0,
+            "fibras": 0,
+            "gorduras": 14.0
+        },
+        "peixe": {
+            "calorias": 206,
+            "proteinas": 22.2,
+            "carboidratos": 0,
+            "fibras": 0,
+            "gorduras": 12.0
+        },
+        "ovo": {
+            "calorias": 155,
+            "proteinas": 13,
+            "carboidratos": 1.1,
+            "fibras": 0,
+            "gorduras": 10.6
+        },
+        "banana": {
+            "calorias": 89,
+            "proteinas": 1.1,
+            "carboidratos": 22.8,
+            "fibras": 2.6,
+            "gorduras": 0.3
+        },
+        "maca": {
+            "calorias": 52,
+            "proteinas": 0.3,
+            "carboidratos": 14,
+            "fibras": 2.4,
+            "gorduras": 0.2
+        }
     }
-}
+    

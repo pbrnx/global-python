@@ -23,6 +23,14 @@ def calcular_calorias_refeicao(alimentos):
             print("Alimento não encontrado.")
     return total_calorias
 
+def input_sexo():
+    while True:
+        sexo = input("Informe o sexo (masculino/feminino): ").lower()
+        if sexo in ["masculino", "feminino"]:
+            return sexo
+        else:
+            print("Por favor, insira 'masculino' ou 'feminino'.")
+
 def calcular_tmb(sexo, idade, peso, altura):
     try:
         idade = int(idade)
@@ -77,7 +85,7 @@ def main():
         escolha_menu = input("Escolha uma opção: ")
 
         if escolha_menu == '1':
-            sexo = input("Informe o sexo (masculino/feminino): ")
+            sexo = input_sexo()
             idade = input("Informe a idade: ")
             peso = input("Informe o peso (em kg): ")
             altura = input("Informe a altura (em cm): ")
@@ -87,6 +95,7 @@ def main():
                 dias_exercicio = int(input("Quantos dias por semana você faz exercício físico? "))
                 get_usuario = calcular_get(tmb_usuario, dias_exercicio)
                 print(f"Seu Gasto Energético Total estimado é: {get_usuario:.2f} calorias/dia")
+
 
         elif escolha_menu == '2':
             if dados_alimentos:
