@@ -2,6 +2,7 @@ import os
 import json
 import dados_usuarios
 
+
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -91,6 +92,8 @@ def mostrar_menu():
 
 def main():
     limpar_tela()
+    print("O hAppVida Fitness é uma solução inovadora e interativa para quem busca um estilo de vida mais saudável e consciente.\nEste aplicativo foi cuidadosamente projetado para atender às necessidades de indivíduos que desejam monitorar \nsua dieta de maneira eficiente e personalizada.\nLembre-se, é sempre melhor prevenir do que remediar, e uma boa alimentação é a melhor solução para isso!")
+
     dados_alimentos = carregar_dados_alimentos('./alimentos_brasileiros.json')
     usuario_atual = None
 
