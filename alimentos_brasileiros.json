@@ -35,39 +35,150 @@
         "gorduras": 0.3
     },
     "frango": {
-            "calorias": 239,
-            "proteinas": 27.3,
-            "carboidratos": 0,
-            "fibras": 0,
-            "gorduras": 14.0
-        },
-        "peixe": {
-            "calorias": 206,
-            "proteinas": 22.2,
-            "carboidratos": 0,
-            "fibras": 0,
-            "gorduras": 12.0
-        },
-        "ovo": {
-            "calorias": 155,
-            "proteinas": 13,
-            "carboidratos": 1.1,
-            "fibras": 0,
-            "gorduras": 10.6
-        },
-        "banana": {
-            "calorias": 89,
-            "proteinas": 1.1,
-            "carboidratos": 22.8,
-            "fibras": 2.6,
-            "gorduras": 0.3
-        },
-        "maca": {
-            "calorias": 52,
-            "proteinas": 0.3,
-            "carboidratos": 14,
-            "fibras": 2.4,
-            "gorduras": 0.2
-        }
+        "calorias": 239,
+        "proteinas": 27.3,
+        "carboidratos": 0,
+        "fibras": 0,
+        "gorduras": 14.0
+    },
+    "peixe": {
+        "calorias": 206,
+        "proteinas": 22.2,
+        "carboidratos": 0,
+        "fibras": 0,
+        "gorduras": 12.0
+    },
+    "ovo": {
+        "calorias": 155,
+        "proteinas": 13,
+        "carboidratos": 1.1,
+        "fibras": 0,
+        "gorduras": 10.6
+    },
+    "banana": {
+        "calorias": 89,
+        "proteinas": 1.1,
+        "carboidratos": 22.8,
+        "fibras": 2.6,
+        "gorduras": 0.3
+    },
+    "maca": {
+        "calorias": 52,
+        "proteinas": 0.3,
+        "carboidratos": 14,
+        "fibras": 2.4,
+        "gorduras": 0.2
+    },
+    "feijão-tropeiro": {
+        "calorias": 280,
+        "proteinas": 9.5,
+        "carboidratos": 40,
+        "fibras": 6.8,
+        "gorduras": 10.2
+    },
+    "acai": {
+        "calorias": 190,
+        "proteinas": 4.2,
+        "carboidratos": 39,
+        "fibras": 5.3,
+        "gorduras": 2.4
+    },
+    "acaraje": {
+        "calorias": 320,
+        "proteinas": 6.8,
+        "carboidratos": 50,
+        "fibras": 4.5,
+        "gorduras": 12.7
+    },
+    "tapioca": {
+        "calorias": 130,
+        "proteinas": 1.5,
+        "carboidratos": 31,
+        "fibras": 1.9,
+        "gorduras": 0.2
+    },
+    "pacoca": {
+        "calorias": 90,
+        "proteinas": 1.8,
+        "carboidratos": 17,
+        "fibras": 2.1,
+        "gorduras": 2.3
+    },
+    "coxinha": {
+        "calorias": 250,
+        "proteinas": 5.7,
+        "carboidratos": 21,
+        "fibras": 1.6,
+        "gorduras": 15.8
+    },
+    "pamonha": {
+        "calorias": 180,
+        "proteinas": 4.9,
+        "carboidratos": 30,
+        "fibras": 2.7,
+        "gorduras": 4.0
+    },
+    "queijo-minas": {
+        "calorias": 310,
+        "proteinas": 20.5,
+        "carboidratos": 2.3,
+        "fibras": 0.0,
+        "gorduras": 25.6
+    },
+    "cuscuz": {
+        "calorias": 160,
+        "proteinas": 2.6,
+        "carboidratos": 35,
+        "fibras": 2.8,
+        "gorduras": 0.6
+    },
+    "canjica": {
+        "calorias": 220,
+        "proteinas": 3.9,
+        "carboidratos": 49,
+        "fibras": 4.1,
+        "gorduras": 1.5
+    },
+    "bolo-de-rolo": {
+        "calorias": 220,
+        "proteinas": 3.2,
+        "carboidratos": 40,
+        "fibras": 2.4,
+        "gorduras": 5.5
+    },
+    "caju": {
+        "calorias": 43,
+        "proteinas": 0.9,
+        "carboidratos": 11,
+        "fibras": 1.0,
+        "gorduras": 0.2
+    },
+    "farofa": {
+        "calorias": 180,
+        "proteinas": 2.4,
+        "carboidratos": 25,
+        "fibras": 3.5,
+        "gorduras": 7.1
+    },
+    "bauru": {
+        "calorias": 340,
+        "proteinas": 15.7,
+        "carboidratos": 25,
+        "fibras": 1.8,
+        "gorduras": 21.4
+    },
+    "pastel": {
+        "calorias": 280,
+        "proteinas": 6.5,
+        "carboidratos": 32,
+        "fibras": 1.9,
+        "gorduras": 14.3
+    },
+    "quibe": {
+        "calorias": 230,
+        "proteinas": 9.2,
+        "carboidratos": 28,
+        "fibras": 3.0,
+        "gorduras": 9.8
     }
-    
+}

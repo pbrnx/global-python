@@ -15,13 +15,18 @@ def salvar_usuarios(usuarios):
 
 usuarios = carregar_usuarios()
 
-def adicionar_usuario(nome_usuario, senha):
+def adicionar_usuario(nome_usuario, senha, idade=None, altura=None, sexo=None):
     usuarios[nome_usuario] = {
         "senha": senha,
         "get": 0,
-        "calorias_ingeridas": 0
+        "calorias_ingeridas": 0,
+        "idade": idade,
+        "altura": altura,
+        "sexo": sexo,
+        "peso": None
     }
     salvar_usuarios(usuarios)
+
 
 def validar_login(nome_usuario, senha):
     usuario = usuarios.get(nome_usuario)
@@ -32,8 +37,10 @@ def validar_login(nome_usuario, senha):
 def obter_usuario(nome_usuario):
     return usuarios.get(nome_usuario, None)
 
-def atualizar_dados_usuario(nome_usuario, get, calorias_ingeridas):
+def atualizar_dados_usuario(nome_usuario, get, calorias_ingeridas, peso, objetivo):
     if nome_usuario in usuarios:
         usuarios[nome_usuario]['get'] = get
         usuarios[nome_usuario]['calorias_ingeridas'] = calorias_ingeridas
+        usuarios[nome_usuario]['peso'] = peso
+        usuarios[nome_usuario]['objetivo'] = objetivo  # Adiciona o objetivo ao perfil do usuário
         salvar_usuarios(usuarios)
