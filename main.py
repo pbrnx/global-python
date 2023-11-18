@@ -41,7 +41,7 @@ def calcular_tmb(sexo, idade, peso, altura):
             tmb = 655 + (9.6 * peso) + (1.8 * altura) - (4.7 * idade)
         else:
             tmb = 66 + (13.7 * peso) + (5 * altura) - (6.8 * idade)
-        return tmb
+        return int(tmb)
     except ValueError:
         print("Por favor, insira valores numéricos válidos para idade, peso e altura.")
         return None
@@ -57,7 +57,7 @@ def calcular_get(tmb, dias_exercicio):
         fator = 1.725
     else:
         fator = 1.9
-    return tmb * fator
+    return int(tmb * fator)
 
 def mostrar_cardapio(alimentos):
     print("\nCardápio de Alimentos com Informações Nutricionais:\n")
