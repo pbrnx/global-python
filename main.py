@@ -1,6 +1,7 @@
 #INTEGRANTES:
 #Pedro Augusto Barone - RM99781
 #João Pedro de Albuquerque Oliveira - RM:551579
+
 import dados_usuarios
 from functions import *
 
