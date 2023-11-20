@@ -63,28 +63,11 @@ def calcular_get(tmb, dias_exercicio):
         fator = 1.9
     return int(tmb * fator)
 
-def registrar_peso(usuario_atual, nome_usuario):
-    peso_atual = float(input("Qual é o seu peso atual (em kg)? "))
-    if usuario_atual.get('idade') and usuario_atual.get('altura') and usuario_atual.get('sexo'):
-        tmb_atual = calcular_tmb(usuario_atual['sexo'], usuario_atual['idade'], peso_atual, usuario_atual['altura'])
-        dias_exercicio = int(input("Quantos dias por semana você faz exercício físico? "))
-        get_atual = calcular_get(tmb_atual, dias_exercicio)
-
-        objetivo = input("Qual é o seu objetivo? (manter, perder, ganhar): ").lower()
-        usuario_atual['objetivo'] = objetivo  # Atualizar o objetivo no perfil do usuário
-
-        # Ajuste das calorias recomendadas com base no objetivo
-        if objetivo == 'perder':
-            calorias_recomendadas = get_atual - 200  # Deficit de 200 calorias
-        elif objetivo == 'ganhar':
-            calorias_recomendadas = get_atual + 400  # Excedente de 400 calorias
-        else:  # 'manter'
-            calorias_recomendadas = get_atual
-
-        print(f"Seu peso atual é {peso_atual}Kg. Para {objetivo} peso, você deve consumir aproximadamente {calorias_recomendadas} calorias por dia.")
-        dados_usuarios.atualizar_dados_usuario(nome_usuario, get_atual, usuario_atual['calorias_ingeridas'], peso_atual, objetivo)
-    else:
-        print("Por favor, complete suas informações em 'Calcular Taxa Metabólica Basal (TMB)' primeiro.")
+def registrar_objetivo(usuario_atual, nome_usuario):
+    objetivo = input("Qual é o seu objetivo? (manter, perder, ganhar): ").lower()
+    usuario_atual['objetivo'] = objetivo
+    dados_usuarios.atualizar_dados_usuario(nome_usuario, usuario_atual['get'], usuario_atual['calorias_ingeridas'], usuario_atual.get('peso', 0), objetivo)
+    print(f"Objetivo atualizado para '{objetivo}'.")
 
 def mostrar_cardapio(alimentos):
     print("\nCardápio de Alimentos com Informações Nutricionais:\n")
@@ -98,25 +81,12 @@ def mostrar_calorias_restantes(usuario):
     if usuario:
         objetivo = usuario.get('objetivo', 'manter')
         calorias_ja_consumidas = usuario['calorias_ingeridas']
-
-        # Ajuste das calorias recomendadas com base no objetivo
-        if objetivo == 'perder':
-            calorias_recomendadas = usuario['get'] - 200  # Deficit de 200 calorias
-        elif objetivo == 'ganhar':
-            calorias_recomendadas = usuario['get'] + 400  # Excedente de 400 calorias
-        else:  # 'manter'
-            calorias_recomendadas = usuario['get']
-
-        # Calorias restantes para hoje com base nas calorias recomendadas
+        calorias_recomendadas = usuario['get'] - 200 if objetivo == 'perder' else (usuario['get'] + 400 if objetivo == 'ganhar' else usuario['get'])
         calorias_restantes = calorias_recomendadas - calorias_ja_consumidas
-
         print(f"\nGET: {usuario['get']} calorias")
         print(f"Você já consumiu {calorias_ja_consumidas} calorias hoje.")
         print(f"Calorias recomendadas para hoje ({objetivo}): {calorias_recomendadas} calorias")
-        if calorias_restantes > 1:
-            print(f"Calorias restantes para hoje: {calorias_restantes} calorias\n")
-        elif calorias_restantes <= 0:
-            print(f"Calorias restantes para hoje: 0 \n")
+        print(f"Calorias restantes para hoje: {calorias_restantes} calorias\n")
     else:
         print("Usuário não logado ou dados não disponíveis.")
 
@@ -128,118 +98,97 @@ def limpar_calorias_consumidas(usuario_atual, nome_usuario):
     else:
         print("Usuário não logado ou dados não disponíveis.")
 
-
-def mostrar_menu():
+def mostrar_menu(usuario_logado=False):
     print("\nMenu Principal do hAppVida Fitness")
-    print("1. Login")
-    print("2. Criar Conta")
-    print("3. Calcular Taxa Metabólica Basal (TMB)")
-    print("4. Inserir Calorias da Refeição")
-    print("5. Cardápio")
-    print("6. Verificar Calorias Restantes")
-    print("7. Registrar Peso")
-    print("8. Limpar Calorias Consumidas")
-    print("9. Sair")
-
+    if usuario_logado:
+        print("1. Calcular Taxa Metabólica Basal (TMB)")
+        print("2. Registrar Objetivo")
+        print("3. Inserir Calorias da Refeição")
+        print("4. Mostrar Calorias Restantes")
+        print("5. Cardápio")
+        print("6. Limpar Calorias Consumidas")
+        print("7. Sair")
+    else:
+        print("1. Login")
+        print("2. Criar Conta")
+        print("3. Sair")
 
 def main():
     limpar_tela()
     dados_alimentos = carregar_dados_alimentos('./alimentos_brasileiros.json')
     usuario_atual = None
+    nome_usuario = None
 
     while True:
-       
-        mostrar_menu()
+        if usuario_atual:
+            mostrar_menu(usuario_logado=True)
+        else:
+            mostrar_menu(usuario_logado=False)
+
         escolha_menu = input("Escolha uma opção: ")
 
         if escolha_menu == '1':
-            limpar_tela()
-            nome_usuario = input("Digite seu nome de usuário: ")
-            senha = input("Digite sua senha: ")
-            if dados_usuarios.validar_login(nome_usuario, senha):
-                usuario_atual = dados_usuarios.obter_usuario(nome_usuario)
-                print(f"Bem-vindo de volta, {nome_usuario}!")
-            else:
-                print("Nome de usuário ou senha incorretos.")
-
-        elif escolha_menu == '2':
-            limpar_tela()
-            print("O hAppVida Fitness é uma solução inovadora e interativa para quem busca um estilo de vida mais saudável e consciente.\nEste aplicativo foi cuidadosamente projetado para atender às necessidades de indivíduos que desejam monitorar \nsua dieta de maneira eficiente e personalizada.\nLembre-se, é sempre melhor prevenir do que remediar, e uma boa alimentação é a melhor solução para isso! \n\nAgora, crie sua conta e faça parte do nosso projeto:\n ")
-            nome_usuario = input("Escolha um nome de usuário: ")
-            senha = input("Escolha uma senha: ")
-            if nome_usuario in dados_usuarios.usuarios:
-                print("Nome de usuário já existe.")
-            else:
-                dados_usuarios.adicionar_usuario(nome_usuario, senha)
-                print(f"Conta criada com sucesso. Bem-vindo(a), {nome_usuario}!")
-                usuario_atual = dados_usuarios.obter_usuario(nome_usuario)
-
-        elif escolha_menu == '3':
-            limpar_tela()
             if usuario_atual:
-                sexo = input_sexo()
-                idade = int(input("Informe a idade: "))
-                peso = float(input("Informe o peso (em kg): "))
-                altura = float(input("Informe a altura (em cm): "))
-                usuario_atual['idade'] = idade
-                usuario_atual['altura'] = altura
-                usuario_atual['sexo'] = sexo
-                tmb_usuario = calcular_tmb(sexo, idade, peso, altura)
                 limpar_tela()
-                print(f"Sua Taxa Metabólica Basal é: {tmb_usuario:.2f} calorias/dia")
+                sexo = input_sexo()
+                idade = input("Informe a idade: ")
+                peso = input("Informe o peso (em kg): ")
+                altura = input("Informe a altura (em cm): ")
+                tmb_usuario = calcular_tmb(sexo, idade, peso, altura)
                 dias_exercicio = int(input("Quantos dias por semana você faz exercício físico? "))
                 get_usuario = calcular_get(tmb_usuario, dias_exercicio)
+                dados_usuarios.atualizar_dados_usuario(nome_usuario, get_usuario, usuario_atual['calorias_ingeridas'], peso, usuario_atual['objetivo'])
                 print(f"Seu Gasto Energético Total estimado é: {get_usuario} calorias/dia")
-                objetivo = usuario_atual.get('objetivo', 'manter')  # Define um valor padrão para o objetivo
-                dados_usuarios.atualizar_dados_usuario(nome_usuario, get_usuario, usuario_atual['calorias_ingeridas'], peso, objetivo)
             else:
-                print("Por favor, faça login ou crie uma conta primeiro.")
+                limpar_tela()
+                nome_usuario = input("Digite seu nome de usuário: ")
+                senha = input("Digite sua senha: ")
+                if dados_usuarios.validar_login(nome_usuario, senha):
+                    usuario_atual = dados_usuarios.obter_usuario(nome_usuario)
+                    print(f"Bem-vindo de volta, {nome_usuario}!")
+                else:
+                    print("Nome de usuário ou senha incorretos.")
+
+        elif escolha_menu == '2':
+            if usuario_atual:
+                limpar_tela()
+                registrar_objetivo(usuario_atual, nome_usuario)
+            else:
+                limpar_tela()
+                print("O hAppVida Fitness é uma solução inovadora e interativa para quem busca um estilo de vida mais saudável e consciente.\nEste aplicativo foi cuidadosamente projetado para atender às necessidades de indivíduos que desejam monitorar \nsua dieta de maneira eficiente e personalizada.\nLembre-se, é sempre melhor prevenir do que remediar, e uma boa alimentação é a melhor solução para isso! \n\nAgora, crie sua conta e faça parte do nosso projeto:\n ")
+                nome_usuario = input("Escolha um nome de usuário: ")
+                senha = input("Escolha uma senha: ")
+                if nome_usuario in dados_usuarios.usuarios:
+                    print("Nome de usuário já existe.")
+                else:
+                    dados_usuarios.adicionar_usuario(nome_usuario, senha)
+                    print(f"Conta criada com sucesso. Bem-vindo(a), {nome_usuario}!")
+                    usuario_atual = dados_usuarios.obter_usuario(nome_usuario)
+
+        elif escolha_menu == '3':
+            if usuario_atual:
+                limpar_tela()
+                total_calorias = calcular_calorias_refeicao(dados_alimentos, usuario_atual['calorias_ingeridas'])
+                print(f"Total de calorias da refeição: {total_calorias - usuario_atual['calorias_ingeridas']} calorias")
+                usuario_atual['calorias_ingeridas'] = total_calorias
+                dados_usuarios.atualizar_dados_usuario(nome_usuario, usuario_atual['get'], total_calorias, usuario_atual.get('peso', 0), usuario_atual['objetivo'])
 
         elif escolha_menu == '4':
-            limpar_tela()
-            if usuario_atual and dados_alimentos:
-                calorias_ja_consumidas = usuario_atual['calorias_ingeridas']
-                total_calorias = calcular_calorias_refeicao(dados_alimentos, calorias_ja_consumidas)
-                print(f"Total de calorias da refeição: {total_calorias - calorias_ja_consumidas} calorias")
-                calorias_restantes = usuario_atual['get'] - total_calorias
-                if calorias_restantes > 1:
-                    print(f"Você ainda pode consumir {calorias_restantes} calorias hoje se deseja manter seu peso")
-                elif calorias_restantes <= 0:
-                    print(f"Você ainda pode consumir 0 calorias hoje se deseja manter seu peso")
-
-                objetivo = usuario_atual.get('objetivo', 'manter')
-                dados_usuarios.atualizar_dados_usuario(nome_usuario, usuario_atual['get'], total_calorias, usuario_atual.get('peso', 0), objetivo)
-                
-            else:
-                print("Dados dos alimentos não disponíveis ou usuário não logado.")
+            if usuario_atual:
+                limpar_tela()
+                mostrar_calorias_restantes(usuario_atual)
 
         elif escolha_menu == '5':
-            limpar_tela()
-            mostrar_cardapio(dados_alimentos)
+            if usuario_atual:
+                limpar_tela()
+                mostrar_cardapio(dados_alimentos)
 
         elif escolha_menu == '6':
-            limpar_tela()
             if usuario_atual:
-                mostrar_calorias_restantes(usuario_atual)
-            else:
-                print("Por favor, faça login ou crie uma conta para acessar esta opção.")
+                limpar_tela()
+                limpar_calorias_consumidas(usuario_atual, nome_usuario)
 
         elif escolha_menu == '7':
-            limpar_tela()
-            if usuario_atual:
-                registrar_peso(usuario_atual, nome_usuario)
-            else:
-                print("Por favor, faça login ou crie uma conta para acessar esta opção.")
-
-
-        elif escolha_menu == '8':
-            limpar_tela()
-            if usuario_atual:
-                limpar_calorias_consumidas(usuario_atual, nome_usuario)
-            else:
-                print("Por favor, faça login ou crie uma conta para acessar esta opção.")
-
-        elif escolha_menu == '9':
             print("Obrigado por usar o hAppVida Fitness!")
             break
 
