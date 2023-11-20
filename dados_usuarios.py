@@ -15,7 +15,7 @@ def salvar_usuarios(usuarios):
 
 usuarios = carregar_usuarios()
 
-def adicionar_usuario(nome_usuario, senha, idade=None, altura=None, sexo=None):
+def adicionar_usuario(nome_usuario, senha):
     usuarios[nome_usuario] = {
         "senha": senha,
         "get": 0,
