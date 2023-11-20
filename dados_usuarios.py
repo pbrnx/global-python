@@ -20,10 +20,9 @@ def adicionar_usuario(nome_usuario, senha, idade=None, altura=None, sexo=None):
         "senha": senha,
         "get": 0,
         "calorias_ingeridas": 0,
-        "idade": idade,
-        "altura": altura,
-        "sexo": sexo,
-        "peso": None
+        "peso": None,
+        "objetivo":None
+
     }
     salvar_usuarios(usuarios)
 

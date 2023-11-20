@@ -70,12 +70,12 @@ def registrar_objetivo(usuario_atual, nome_usuario):
     print(f"Objetivo atualizado para '{objetivo}'.")
 
 def mostrar_cardapio(alimentos):
-    print("\nCardápio de Alimentos com Informações Nutricionais:\n")
+    print("\nCardápio de Alimentos com Calorias por 100g:\n")
     for alimento, dados in alimentos.items():
-        print(f"{alimento.capitalize()}:")
-        for chave, valor in dados.items():
-            print(f"  {chave.capitalize()}: {valor}")
-        print()
+        calorias = dados.get('calorias', 'Não disponível')
+        print(f"{alimento.capitalize()}: {calorias} cal")
+
+
 
 def mostrar_calorias_restantes(usuario):
     if usuario:
@@ -101,7 +101,7 @@ def limpar_calorias_consumidas(usuario_atual, nome_usuario):
 def mostrar_menu(usuario_logado=False):
     print("\nMenu Principal do hAppVida Fitness")
     if usuario_logado:
-        print("1. Calcular Taxa Metabólica Basal (TMB)")
+        print("1. Calcular Gasto Energético Total")
         print("2. Registrar Objetivo")
         print("3. Inserir Calorias da Refeição")
         print("4. Mostrar Calorias Restantes")
@@ -111,7 +111,6 @@ def mostrar_menu(usuario_logado=False):
     else:
         print("1. Login")
         print("2. Criar Conta")
-        print("3. Sair")
 
 def main():
     limpar_tela()
