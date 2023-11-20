@@ -50,7 +50,7 @@ def main():
             if usuario_atual:
                 limpar_tela()
                 registrar_objetivo(usuario_atual, nome_usuario)
-                limpar_tela()
+                
             else:
                 limpar_tela()
                 print("O hAppVida Fitness é uma solução inovadora e interativa para quem busca um estilo de vida mais saudável e consciente.\nEste aplicativo foi cuidadosamente projetado para atender às necessidades de indivíduos que desejam monitorar \nsua dieta de maneira eficiente e personalizada.\nLembre-se, é sempre melhor prevenir do que remediar, e uma boa alimentação é a melhor solução para isso! \n\nAgora, crie sua conta e faça parte do nosso projeto:\n ")
