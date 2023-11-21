@@ -35,7 +35,7 @@ def main():
                         print("Número inválido. Insira um número de dias entre 0 e 7.")
                 get_usuario = calcular_get(tmb_usuario, dias_exercicio)
                 dados_usuarios.atualizar_dados_usuario(nome_usuario, get_usuario, usuario_atual['calorias_ingeridas'], peso, usuario_atual['objetivo'])
-                print(f"Seu Gasto Energético Total estimado é: {get_usuario} calorias/dia")
+                print(f"Seu Gasto Energético Total estimado é: {get_usuario} calorias/dia e {get_usuario * 7} calorias/semana")
 
             else:
                 limpar_tela()

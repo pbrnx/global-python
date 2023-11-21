@@ -59,8 +59,6 @@ def calcular_get(tmb, dias_exercicio):
         fator = 1.55
     elif 6 <= dias_exercicio <= 7:
         fator = 1.725
-    else:
-        fator = 1.9
     return int(tmb * fator)
 
 def registrar_objetivo(usuario_atual, nome_usuario):
