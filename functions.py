@@ -92,6 +92,50 @@ def mostrar_cardapio(alimentos):
         calorias = dados.get('calorias', 'Não disponível')
         print(f"{alimento.capitalize()}: {calorias} cal")
 
+    # Opção para adicionar um novo alimento
+    if input("\nAlgum alimento não está na lista? Deseja adicionar agora? (sim/não): ").lower() == 'sim':
+        adicionar_alimento(alimentos)
+
+def adicionar_alimento(alimentos):
+    def solicitar_entrada(mensagem):
+        entrada = input(mensagem)
+        if entrada.lower() == 'cancelar':
+            print("Operação cancelada.")
+            return None
+        return entrada
+
+    nome_alimento = solicitar_entrada("Digite o nome do novo alimento (ou 'cancelar' para interromper): ").lower()
+    if nome_alimento is None:
+        return
+
+    try:
+        calorias = float(solicitar_entrada("Calorias por 100g (ou 'cancelar' para interromper): "))
+        proteinas = float(solicitar_entrada("Proteínas por 100g (ou 'cancelar' para interromper): "))
+        carboidratos = float(solicitar_entrada("Carboidratos por 100g (ou 'cancelar' para interromper): "))
+        fibras = float(solicitar_entrada("Fibras por 100g (ou 'cancelar' para interromper): "))
+        gorduras = float(solicitar_entrada("Gorduras por 100g (ou 'cancelar' para interromper): "))
+    except ValueError:
+        print("Entrada inválida. Operação cancelada.")
+        return
+    except TypeError:
+        # Cancelamento durante a conversão para float
+        return
+
+    alimentos[nome_alimento] = {
+        "calorias": calorias,
+        "proteinas": proteinas,
+        "carboidratos": carboidratos,
+        "fibras": fibras,
+        "gorduras": gorduras
+    }
+
+    # Salvar as alterações no arquivo JSON
+    with open('./alimentos_brasileiros.json', 'w') as arquivo:
+        json.dump(alimentos, arquivo, indent=4)
+
+    print(f"Alimento '{nome_alimento}' adicionado com sucesso.")
+
+
 def mostrar_calorias_restantes(usuario):
     if usuario:
         objetivo = usuario.get('objetivo', 'manter')

@@ -69,7 +69,7 @@
         "fibras": 2.4,
         "gorduras": 0.2
     },
-    "feijão-tropeiro": {
+    "feijao tropeiro": {
         "calorias": 280,
         "proteinas": 9.5,
         "carboidratos": 40,
@@ -180,5 +180,12 @@
         "carboidratos": 28,
         "fibras": 3.0,
         "gorduras": 9.8
+    },
+    "monster": {
+        "calorias": 480.0,
+        "proteinas": 0.0,
+        "carboidratos": 45.0,
+        "fibras": 0.0,
+        "gorduras": 0.0
     }
 }
